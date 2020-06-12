@@ -16,7 +16,7 @@ def close_windows(list_of_windows):
 def read_data():
     """Function to read the data from a file. This could be more sophisticated and get data from the webb, etc."""
     first_row = True
-    with open('covid.csv','r') as csvfile:
+    with open('database/covid.csv','r') as csvfile:
         csv_read = csv.reader(csvfile, delimiter=',')
         for row in csv_read:
             if first_row:
@@ -26,7 +26,7 @@ def read_data():
                 pass
 
     # Or use the numpy version. Unknown values are set to NaN
-    A = np.genfromtxt('covid.csv',delimiter=',',skip_header=True)
+    A = np.genfromtxt('database/covid.csv',delimiter=',',skip_header=True)
 
     return A
 
