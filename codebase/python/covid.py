@@ -43,18 +43,22 @@ def main(options):
     deaths_avg_wk = np.convolve(deaths_per_day, np.ones(avg_length))/avg_length
     deaths_avg_biwk = np.convolve(deaths_per_day, np.ones(14))/14
 
-
     plt.figure(1)
     plt.plot(deaths_per_day,linewidth=3)
     plt.plot(deaths_avg_wk[:-(avg_length-1)],
              'r--', linewidth=3)
+    plt.plot(225+np.arange(len(deaths_avg_wk[:-(avg_length-1)])), deaths_avg_wk[:-(avg_length-1)],
+             'g--', linewidth=3)
     plt.grid(True)
+    plt.xlim(left=0, right=30+len(deaths_avg_wk[:-(avg_length-1)]))
 
-    plt.xlabel("Dagar sedan forsta sjukdomsfallet")
-    plt.ylabel('Antal doda per dag')
-    plt.title('Antal doda over tid')
+    plt.xlabel("Dagar sedan första sjukdomsfallet")
+    plt.ylabel('Antal döda per dag')
+    plt.title('Antal döda över tid')
 
-    plt.legend(['Inrapporterade dodsfall per dag', f'Medelvardesbildat over {avg_length} dagar'])
+    plt.legend(['Inrapporterade dödsfall per dag', 
+                f'Medelvärdesbildat över {avg_length} dagar', 
+                'Första vågen på andra vågen'])
     plt.savefig('number_of_deaths_sweden_per_day.png')
     
 
@@ -83,9 +87,9 @@ def main(options):
     plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
     
     #plt.grid(True)
-    plt.xlabel('Lopande totalt antal avlidna')
-    plt.ylabel(f'Antal doda de senaste {avg_length} dagarna')
-    plt.title('Antal doda over lang tid jamfort med kort tid')
+    plt.xlabel('Löpande totalt antal avlidna')
+    plt.ylabel(f'Antal döda de senaste {avg_length} dagarna')
+    plt.title('Antal döda över lång tid jämfört med kort tid')
     plt.savefig('number_of_deaths_cannon_sweden_per_day_lin.png')
     print(np.amax(deaths_total))
     print(deaths_total)
