@@ -1,18 +1,11 @@
 % covid.m
 % import covid data from csv
 
-deaths_day = covid_x(:,end);
-deaths_week = filter(ones(1,7)/7,1,deaths_day);
-deaths_total = covid_x(:,end-1);
-
-
-fh = figure(1); clf; ah = axes; hold on; zoom on; grid on; set(gca,'Fontsize',14)
-ph(1) = plot(deaths_week)
-ph(2) = plot(deaths_day)
-sum(deaths_day)
-sum(deaths_week)
-
-set(ph,'LineWidth',2)
-xlabel('Dagar sedan man tyckte det var värt att börja räkna');
-ylabel('Dödelidöda per dag');
-title('Antal döda över tid');
+A  =  dlmread('..\..\database\covid2.csv',',',1,0);
+x = A(:,1);
+y = A(:,7);
+p = polyfit(x,y,28);
+x_n = 1:max(x);
+f = polyval(p,x_n);
+plot(x,y,'o',x_n,f,'-')
+legend('data','linear fit')

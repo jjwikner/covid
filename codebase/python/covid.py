@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 # ---
 
+import os
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse
-from multiprocessing import Process, Manager
 import time
+
 def close_windows(list_of_windows):
     while True:
         time.sleep(2)
@@ -16,7 +17,7 @@ def close_windows(list_of_windows):
 def read_data():
     """Function to read the data from a file. This could be more sophisticated and get data from the webb, etc."""
     first_row = True
-    with open('database/covid.csv','r') as csvfile:
+    with open(f'..{os.sep}..{os.sep}database{os.sep}covid.csv','r') as csvfile:
         csv_read = csv.reader(csvfile, delimiter=',')
         for row in csv_read:
             if first_row:
@@ -26,12 +27,12 @@ def read_data():
                 pass
 
     # Or use the numpy version. Unknown values are set to NaN
-    A = np.genfromtxt('database/covid.csv',delimiter=',',skip_header=True)
+    A = np.genfromtxt(f'..{os.sep}..{os.sep}database/covid.csv',delimiter=',',skip_header=True)
 
     return A
 
 def main(options):
-    p = Process(target=close_windows, args=([],))
+    # p = Process(target=close_windows, args=([],))
     # p.start()
     # p.join()
     
