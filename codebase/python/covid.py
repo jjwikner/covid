@@ -48,8 +48,8 @@ def main(options):
     plt.plot(deaths_per_day,linewidth=3)
     plt.plot(deaths_avg_wk[:-(avg_length-1)],
              'r--', linewidth=3)
-    plt.plot(225+np.arange(len(deaths_avg_wk[:-(avg_length-1)])), deaths_avg_wk[:-(avg_length-1)],
-             'g--', linewidth=3)
+    #plt.plot(225+np.arange(len(deaths_avg_wk[:-(avg_length-1)])), deaths_avg_wk[:-(avg_length-1)],
+    #         'g--', linewidth=3)
     plt.grid(True)
     plt.xlim(left=0, right=30+len(deaths_avg_wk[:-(avg_length-1)]))
 
@@ -65,7 +65,7 @@ def main(options):
 
     plt.figure(2)
 
-    dead_per_day = 2
+    dead_per_day = 21
     deaths_fake = dead_per_day*np.ones(int(np.amax(deaths_total)/dead_per_day))
     deaths_fake_total = np.arange(1,int(np.amax(deaths_total)),int(np.amax(deaths_total)/deaths_total.size))# np.cumsum(deaths_fake)
     deaths_fake = np.ones(deaths_fake_total.size)*int(np.amax(deaths_total)/deaths_total.size)    
@@ -76,15 +76,15 @@ def main(options):
              '-',
              linewidth=3)
 
-    plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
+    #plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
 
     
     deaths_fake = np.power(3,0.06545*np.arange(1+deaths_total.size))
     deaths_fake_total = np.cumsum(deaths_fake)
     deaths_fake_avg_wk = np.convolve(deaths_fake, np.ones(avg_length))/avg_length
     
-    print(deaths_fake_total.size)
-    print(deaths_fake_avg_wk.size)
+    #print(deaths_fake_total.size)
+    #print(deaths_fake_avg_wk.size)
     plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
     
     #plt.grid(True)
