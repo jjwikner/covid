@@ -45,9 +45,15 @@ def main(options):
     deaths_avg_biwk = np.convolve(deaths_per_day, np.ones(14))/14
 
     plt.figure(1)
-    plt.plot(deaths_per_day,linewidth=3)
+    plt.plot(deaths_per_day,'k-.',linewidth=1)
     plt.plot(deaths_avg_wk[:-(avg_length-1)],
-             'r--', linewidth=3)
+             'k-', linewidth=3)
+
+    noise = np.std( deaths_per_day-deaths_avg_wk[:-(avg_length-1)] )
+    power = np.sqrt((1/deaths_per_day.shape[0])*np.sum(deaths_avg_wk[:-(avg_length-1)]**2))
+    print(f"Signal power: {power:2.1f} deaths,rms. \nNoise power: {noise:2.1f} deaths,rms.")
+    print(f"SNR: {power/noise:2.1f}x or {20*np.log10(power/noise):2.1f} dB.")
+    
     #plt.plot(225+np.arange(len(deaths_avg_wk[:-(avg_length-1)])), deaths_avg_wk[:-(avg_length-1)],
     #         'g--', linewidth=3)
     plt.grid(True)
@@ -60,7 +66,7 @@ def main(options):
     plt.legend(['Inrapporterade dödsfall per dag', 
                 f'Medelvärdesbildat över {avg_length} dagar', 
                 'Första vågen på andra vågen'])
-    plt.savefig('number_of_deaths_sweden_per_day.png')
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\number_of_deaths_sweden_per_day.png',dpi=300)
     
 
     plt.figure(2)
@@ -73,10 +79,10 @@ def main(options):
 
     plt.plot(deaths_total,
              avg_length*deaths_avg_wk[:-(avg_length-1)],
-             '-',
+             'k-',
              linewidth=3)
 
-    #plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
+    plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'k-.')
 
     
     deaths_fake = np.power(3,0.06545*np.arange(1+deaths_total.size))
@@ -85,13 +91,13 @@ def main(options):
     
     #print(deaths_fake_total.size)
     #print(deaths_fake_avg_wk.size)
-    plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'--')
+    plt.plot(deaths_fake_total, avg_length*deaths_fake_avg_wk[:-(avg_length-1)],'k--')
     
     #plt.grid(True)
     plt.xlabel('Löpande totalt antal avlidna')
     plt.ylabel(f'Antal döda de senaste {avg_length} dagarna')
     plt.title('Antal döda över lång tid jämfört med kort tid')
-    plt.savefig('number_of_deaths_cannon_sweden_per_day_lin.png')
+    plt.savefig('number_of_deaths_cannon_sweden_per_day_lin.png',dpi=300)
     print(np.amax(deaths_total))
     print(deaths_total)
     plt.xlim(left=1, right=1.1*np.amax(deaths_total)) # min([np.amax(deaths_total), np.amax(deaths_fake_total)]))
@@ -99,7 +105,7 @@ def main(options):
     plt.legend(['Verkligt avlidna','Antaget konstant per dag', 'Exponentiellt tilltagande'])
     #plt.yscale('log')
     #plt.xscale('log')
-    plt.savefig('number_of_deaths_cannon_sweden_per_day_log.png')
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\number_of_deaths_cannon_sweden_per_day_log.png',dpi=300)
     plt.yscale('linear')
     plt.xscale('linear')
     
@@ -124,40 +130,40 @@ if __name__ == "__main__":
     times = np.arange(21)
     R_one = 1
     S_one = np.power(1 + R_one, times)
-    plt.plot(times, S_one/1e6)
+    plt.plot(times, S_one/1e6,'k--')
     
     times = np.arange(16)
     R_covid = 1.8
     S_covid =  np.power(1 + R_covid, times)
-    plt.plot(times, S_covid/1e6)
+    plt.plot(times, S_covid/1e6,'k-')
 
     R_two = 2
     R_three = 3
 
     S_two = np.power(1 + R_two, times)
-    plt.plot(times, S_two/1e6)
+    plt.plot(times, S_two/1e6,'k--')
     
     times = np.arange(12)
     S_three = np.power(1 + R_three, times)
-    plt.plot(times, S_three/1e6)
+    plt.plot(times, S_three/1e6,'k-.')
    
     R_measel = 13
     times = np.arange(7)
     S_measels =  np.power(1 + R_measel, times)
-    plt.plot(times, S_measels/1e6)
+    plt.plot(times, S_measels/1e6,'k:')
 
-    plt.xlabel('Antal smittningar')
+    plt.xlabel('Antalet i smittningsledet')
     plt.ylabel('Totala antalet miljoner smittade')
-    plt.title('Exponentiellt okande antalet smittade')
-    plt.legend(['1','Covid','2','3','Masslingen'])    
+    plt.title('Exponentiellt ökande antalet smittade')
+    plt.legend(['R=1','Covid','R=2','R=3','Mässlingen'])    
     plt.ylim(bottom=0, top=1)
     plt.xticks(np.arange(21))
-    plt.savefig('exponential_1.png')
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\tillvaxt_lin.png',dpi=300)
     plt.ylim(bottom=1e-6, top=1)
     plt.yscale('log')
-    plt.savefig('exponential_2.png')
+    plt.savefig('tillvaxt.png',dpi=300)
     plt.xscale('log')
-    plt.savefig('exponential_3.png')
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\tillvaxt_log.png',dpi=300)
     
     plt.show()
 

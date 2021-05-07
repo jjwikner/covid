@@ -32,21 +32,32 @@ def read_data(database='../../database/befolkning.csv'):
     return A
 
 def main(options):
-
+    options.plot=True
     folk_stats = read_data()
     year = folk_stats[:,0]
+    
     plt.figure(1)
-    plt.plot(year, folk_stats[:,1:],'-x')
-    plt.grid(True)
-    plt.xlabel('År')
-    plt.ylabel('Antal människor på jorden')
-    plt.title('Befolkningsutveckling')
+    plt.plot(year, folk_stats[:,1:],'k-x')
+    plt.grid(False)
+    plt.xlabel('År', size=17)
+    plt.ylabel('Antal människor på jorden', size=17)
+    plt.title('Den globala befolkningsutvecklingen', size=17)
 
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\befolkning_1.png')
     #plt.plot(year, 
     plt.yscale('log')
     plt.xscale('linear')
-    #plt.savefig('befolkning.png')
-    
+    plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\befolkning_2.png')
+
+    plt.figure(2)
+    plt.plot(11000+year, folk_stats[:,1:],'k-x')
+    plt.grid(True)
+    plt.xlabel('År')
+    plt.ylabel('Antal människor på jorden', size=18)
+    plt.title('Den globala befolkningsutvecklingen', size=18)
+    plt.yscale('log')
+    plt.xscale('log')
+   
     if options.plot:
         plt.show()
     

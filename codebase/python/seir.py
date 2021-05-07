@@ -5,7 +5,7 @@ from scipy.integrate import odeint
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
-import mpld3
+#import mpld3
 #mpld3.enable_notebook()
 
 def plotseird(args, t, S, E, I, R, D=None, L=None, R0=None, Alpha=None, CFR=None):
@@ -13,13 +13,13 @@ def plotseird(args, t, S, E, I, R, D=None, L=None, R0=None, Alpha=None, CFR=None
 
     f, ax = plt.subplots(1,1,figsize=(10,4))
     # ax.plot(t, S/1e6, 'b', alpha=0.7, linewidth=2, label='Mottagliga')
-    ax.plot(t, E/1e6, 'y', alpha=0.7, linewidth=2, label='Smittspridare')
-    ax.plot(t, I/1e6, 'r', alpha=0.7, linewidth=2, label='Infekterade')
+    ax.plot(t, E/1e6, 'k--', alpha=0.7, linewidth=2, label='Smittspridare')
+    ax.plot(t, I/1e6, 'k:', alpha=0.7, linewidth=2, label='Infekterade')
     ax.grid(True)
     # ax.plot(t, R/1e6, 'g', alpha=0.7, linewidth=2, label='Återhämtade')
 
     if D is not None:
-        ax.plot(t, D/1e6, 'k', alpha=0.7, linewidth=2, label='Avlidna')
+        ax.plot(t, D/1e6, 'k-.', alpha=0.7, linewidth=2, label='Avlidna')
         #ax.plot(t, (S+E+I+R+D)/1e6, 'c--', alpha=0.7, linewidth=2, label='Total')
     #else:
 
@@ -42,7 +42,7 @@ def plotseird(args, t, S, E, I, R, D=None, L=None, R0=None, Alpha=None, CFR=None
     
     if args is not None:
         if args.save:
-            plt.savefig('sir-kurva.png')
+            plt.savefig('D:\\Users\\jjwikner\\google\\bok\\elektronism\\figs\\SEIRD.png',dpi=300)
 
         if args.plot:
             plt.show();
@@ -129,8 +129,8 @@ def main(args):
     print(D[-1])
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Plot some covid stuff.')
-    parser.add_argument('--plot', help='Plot the windows', action='store_true', default=False)
-    parser.add_argument('--save', help='Plot the windows', action='store_true', default=False)
+    parser.add_argument('--plot', help='Plot the windows', action='store_true', default=True)
+    parser.add_argument('--save', help='Plot the windows', action='store_true', default=True)
     parser.add_argument('--pop', help="Population size", type=int, default=10300000)
     parser.add_argument('--illness', help="Infection lasts", type=int, default=14)
     parser.add_argument('--incubate', help='Incubation time in days', type=int, default=10)
